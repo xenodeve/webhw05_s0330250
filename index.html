@@ -12,6 +12,45 @@
     <title>HW5 - Calculator</title>
   </head>
   <body>
+    <!-- Calculator Logo -->
+    <div class="calculator-logo" title="Calculator App">
+      <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Calculator body -->
+        <rect x="4" y="2" width="24" height="28" rx="3" fill="var(--icon-fill)" stroke="var(--border-color)" stroke-width="1"/>
+        <!-- Display screen -->
+        <rect x="6" y="4" width="20" height="6" rx="1" fill="var(--input-bg)" stroke="var(--border-color)" stroke-width="0.5"/>
+        <!-- Display numbers -->
+        <rect x="22" y="6" width="2" height="1.5" rx="0.2" fill="var(--accent-color)"/>
+        <rect x="19" y="6" width="2" height="1.5" rx="0.2" fill="var(--accent-color)"/>
+        <!-- Button grid -->
+        <circle cx="8" cy="14" r="1.5" fill="var(--input-bg)" stroke="var(--border-color)" stroke-width="0.3"/>
+        <circle cx="13" cy="14" r="1.5" fill="var(--input-bg)" stroke="var(--border-color)" stroke-width="0.3"/>
+        <circle cx="18" cy="14" r="1.5" fill="var(--input-bg)" stroke="var(--border-color)" stroke-width="0.3"/>
+        <circle cx="23" cy="14" r="1.5" fill="var(--accent-color)" stroke="var(--border-color)" stroke-width="0.3"/>
+        <!-- Row 2 -->
+        <circle cx="8" cy="18" r="1.5" fill="var(--input-bg)" stroke="var(--border-color)" stroke-width="0.3"/>
+        <circle cx="13" cy="18" r="1.5" fill="var(--input-bg)" stroke="var(--border-color)" stroke-width="0.3"/>
+        <circle cx="18" cy="18" r="1.5" fill="var(--input-bg)" stroke="var(--border-color)" stroke-width="0.3"/>
+        <circle cx="23" cy="18" r="1.5" fill="var(--accent-color)" stroke="var(--border-color)" stroke-width="0.3"/>
+        <!-- Row 3 -->
+        <circle cx="8" cy="22" r="1.5" fill="var(--input-bg)" stroke="var(--border-color)" stroke-width="0.3"/>
+        <circle cx="13" cy="22" r="1.5" fill="var(--input-bg)" stroke="var(--border-color)" stroke-width="0.3"/>
+        <circle cx="18" cy="22" r="1.5" fill="var(--input-bg)" stroke="var(--border-color)" stroke-width="0.3"/>
+        <circle cx="23" cy="22" r="1.5" fill="var(--accent-color)" stroke="var(--border-color)" stroke-width="0.3"/>
+        <!-- Row 4 -->
+        <circle cx="8" cy="26" r="1.5" fill="var(--input-bg)" stroke="var(--border-color)" stroke-width="0.3"/>
+        <circle cx="13" cy="26" r="1.5" fill="var(--input-bg)" stroke="var(--border-color)" stroke-width="0.3"/>
+        <circle cx="18" cy="26" r="1.5" fill="var(--input-bg)" stroke="var(--border-color)" stroke-width="0.3"/>
+        <circle cx="23" cy="26" r="1.5" fill="var(--accent-color)" stroke="var(--border-color)" stroke-width="0.3"/>
+        <!-- Math symbols on accent buttons -->
+        <text x="23" y="15.5" text-anchor="middle" font-size="2" fill="white" font-weight="bold">÷</text>
+        <text x="23" y="19.5" text-anchor="middle" font-size="2" fill="white" font-weight="bold">×</text>
+        <text x="23" y="23.5" text-anchor="middle" font-size="2.5" fill="white" font-weight="bold">-</text>
+        <text x="23" y="27.5" text-anchor="middle" font-size="2.5" fill="white" font-weight="bold">+</text>
+      </svg>
+      <span class="logo-text">CALCULATOR</span>
+    </div>
+
     <button class="theme-toggle" id="theme-toggle" title="Toggles light & dark" aria-label="auto" aria-live="polite">
       <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
         <mask class="moon" id="moon-mask">
