@@ -1,0 +1,123 @@
+/* Toast Notification Styles */
+#toast {
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--toast-bg, #272727);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  font-size: 14px;
+  transition: all 0.5s ease-in-out;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#toast.opacity-100 {
+  opacity: 1;
+}
+
+#toast.opacity-0 {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-20px);
+}
+
+#toast.hidden {
+  display: none;
+}
+
+/* Icon Styles */
+.icon {
+  width: 24px;
+  height: 24px;
+  stroke-width: 3;
+  stroke-miterlimit: 10;
+  stroke: white;
+  fill: none;
+  animation: dash 0.6s ease forwards;
+  flex-shrink: 0;
+}
+
+/* Success Checkmark Animation */
+.checkmark {
+  animation: stroke 0.5s ease forwards;
+}
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  animation: dash 0.6s ease forwards;
+}
+
+.checkmark__check {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: dash 0.3s 0.6s ease forwards;
+}
+
+/* Error Cross Animation */
+.cross__line1,
+.cross__line2 {
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation: dash 0.4s ease forwards;
+  stroke-linecap: round;
+}
+
+.cross__line2 {
+  animation-delay: 0.4s;
+}
+
+/* Keyframe Animations */
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes stroke {
+  100% {
+    stroke-width: 3;
+  }
+}
+
+/* Theme specific colors */
+:root {
+  --toast-success: #10b981;
+  --toast-error: #ef4444;
+  --toast-info: #3b82f6;
+}
+
+[data-theme="dark"] {
+  --toast-success: #059669;
+  --toast-error: #dc2626;
+  --toast-info: #2563eb;
+}
+
+/* Toast message styles */
+#toastMessage {
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  #toast {
+    left: 20px;
+    right: 20px;
+    transform: none;
+    width: auto;
+    max-width: calc(100vw - 40px);
+  }
+  
+  #toast.opacity-0 {
+    transform: translateY(-20px);
+  }
+}
