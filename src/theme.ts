@@ -1,4 +1,6 @@
-// Theme switching functionality
+// Theme switching functionality with toast notifications
+import { toast } from './toast';
+
 type Theme = 'light' | 'dark';
 
 interface ThemeState {
@@ -11,6 +13,11 @@ const onClick = (): void => {
   // flip current value
   theme.value = theme.value === 'light' ? 'dark' : 'light';
   setPreference();
+  
+  // Show toast notification
+  const themeIcon = theme.value === 'dark' ? '🌙' : '☀️';
+  const themeName = theme.value === 'dark' ? 'Dark' : 'Light';
+  toast.success(`${themeIcon} เปลี่ยนเป็น ${themeName} โหมด`, 3500);
 };
 
 const getColorPreference = (): Theme => {

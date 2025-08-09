@@ -1,5 +1,5 @@
 // Toast notification system with animations
-type ToastType = 'success' | 'error' | 'info';
+type ToastType = 'success' | 'error' | 'info' | 'warning';
 
 interface ToastConfig {
   message: string;
@@ -12,6 +12,7 @@ class Toast {
   private messageElement: HTMLElement | null = null;
   private checkmarkIcon: HTMLElement | null = null;
   private crossIcon: HTMLElement | null = null;
+  private cautionIcon: HTMLElement | null = null;
 
   constructor() {
     this.createToastHTML();
@@ -40,10 +41,19 @@ class Toast {
       </svg>
     `;
 
+    // Create caution/warning SVG
+    const cautionSVG = `
+      <svg id="cautionIcon" class="icon caution" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display:none;">
+        <path class="caution__triangle" d="M26 6 L46 38 L6 38 Z" stroke="white" fill="none" />
+        <line class="caution__line" x1="26" y1="18" x2="26" y2="28" stroke="white" />
+        <circle class="caution__dot" cx="26" cy="34" r="2" fill="white" />
+      </svg>
+    `;
+
     // Create message span
     const messageSpan = '<span id="toastMessage"></span>';
 
-    toast.innerHTML = checkmarkSVG + crossSVG + messageSpan;
+    toast.innerHTML = checkmarkSVG + crossSVG + cautionSVG + messageSpan;
     document.body.appendChild(toast);
   }
 
@@ -52,11 +62,13 @@ class Toast {
     this.messageElement = document.getElementById('toastMessage');
     this.checkmarkIcon = document.getElementById('checkmarkIcon');
     this.crossIcon = document.getElementById('crossIcon');
+    this.cautionIcon = document.getElementById('cautionIcon');
   }
 
   private resetAnimation(element: HTMLElement | SVGElement): void {
     element.style.animation = 'none';
-    (element as any).offsetHeight; // Trigger reflow
+    // Force reflow using getComputedStyle which works for both HTML and SVG
+    window.getComputedStyle(element).animation;
     element.style.animation = '';
   }
 
@@ -66,32 +78,42 @@ class Toast {
     return {
       success: isDark ? '#059669' : '#10b981',
       error: isDark ? '#dc2626' : '#ef4444',
-      info: isDark ? '#2563eb' : '#3b82f6'
+      info: isDark ? '#2563eb' : '#3b82f6',
+      warning: isDark ? '#d97706' : '#f59e0b'
     };
   }
 
   private showIcon(type: ToastType): void {
-    if (!this.checkmarkIcon || !this.crossIcon) return;
+    if (!this.checkmarkIcon || !this.crossIcon || !this.cautionIcon) return;
+
+    // Hide all icons first
+    this.crossIcon.style.display = 'none';
+    this.checkmarkIcon.style.display = 'none';
+    this.cautionIcon.style.display = 'none';
 
     if (type === 'success' || type === 'info') {
-      this.crossIcon.style.display = 'none';
       this.checkmarkIcon.style.display = 'inline-block';
       
       // Reset and trigger checkmark animation
       const checkPaths = this.checkmarkIcon.querySelectorAll('circle, path') as NodeListOf<SVGElement>;
-      checkPaths.forEach(el => this.resetAnimation(el as HTMLElement));
-    } else {
-      this.checkmarkIcon.style.display = 'none';
+      checkPaths.forEach(el => this.resetAnimation(el));
+    } else if (type === 'error') {
       this.crossIcon.style.display = 'inline-block';
       
       // Reset and trigger cross animation
       const crossLines = this.crossIcon.querySelectorAll('line') as NodeListOf<SVGElement>;
-      crossLines.forEach(el => this.resetAnimation(el as HTMLElement));
+      crossLines.forEach(el => this.resetAnimation(el));
+    } else if (type === 'warning') {
+      this.cautionIcon.style.display = 'inline-block';
+      
+      // Reset and trigger caution animation
+      const cautionElements = this.cautionIcon.querySelectorAll('path, line, circle') as NodeListOf<SVGElement>;
+      cautionElements.forEach(el => this.resetAnimation(el));
     }
   }
 
   public show(config: ToastConfig): void {
-    const { message, type = 'info', duration = 3000 } = config;
+    const { message, type = 'info', duration = 3500 } = config;
     
     if (!this.toastElement || !this.messageElement) return;
 
@@ -143,6 +165,10 @@ class Toast {
 
   public info(message: string, duration?: number): void {
     this.show({ message, type: 'info', duration });
+  }
+
+  public warning(message: string, duration?: number): void {
+    this.show({ message, type: 'warning', duration });
   }
 }
 

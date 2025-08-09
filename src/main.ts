@@ -1,9 +1,10 @@
 import { initTheme } from './theme';
+import { toast } from './toast'; // Import toast for notifications
 
-const num1Input = document.getElementById("num1") as HTMLInputElement;
-const num2Input = document.getElementById("num2") as HTMLInputElement;
-const calcBtn = document.getElementById("calculate") as HTMLButtonElement;
-const resultDiv = document.getElementById("result") as HTMLDivElement;
+const num1Input = document.getElementById('num1') as HTMLInputElement;
+const num2Input = document.getElementById('num2') as HTMLInputElement;
+const calcBtn = document.getElementById('calculate') as HTMLButtonElement;
+const resultDiv = document.getElementById('result') as HTMLDivElement;
 
 // Initialize theme functionality
 window.addEventListener('DOMContentLoaded', () => {
@@ -17,6 +18,11 @@ calcBtn.addEventListener("click", () => {
     const op = (document.querySelector('input[name="op"]:checked') as HTMLInputElement)?.value;
 
     let result: number;
+
+    if (isNaN(num1) || isNaN(num2)) {
+        toast.warning('กรุณาระบุตัวเลข');
+        return;
+    }
 
     switch (op) {
         case "add":
@@ -32,14 +38,24 @@ calcBtn.addEventListener("click", () => {
             if (num2 !== 0) {
                 result = num1 / num2;
             } else {
-                alert("ไม่สามารถหารด้วยศูนย์ได้");
+                toast.warning('ไม่สามารถหารด้วยศูนย์ได้');
                 return;
             }
             break;
         default:
-            alert("กรุณาเลือกการดำเนินการ");
+            toast.warning('กรุณาเลือกการดำเนินการ');
             return;
     }
 
     resultDiv.textContent = result.toString();
+    
+    // Show success notification
+    const operations = {
+        'add': 'บวก',
+        'sub': 'ลบ', 
+        'mul': 'คูณ',
+        'div': 'หาร'
+    };
+    const opName = operations[op as keyof typeof operations] || 'คำนวณ';
+    toast.success(`✅ ${opName} เรียบร้อยแล้ว! ผลลัพธ์: ${result}`);
 });

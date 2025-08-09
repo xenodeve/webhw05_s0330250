@@ -4,6 +4,7 @@
 :root {
   --bg-primary: linear-gradient(135deg, #f5f7fa, #c3cfe2);
   --bg-secondary: linear-gradient(145deg, #ffffff, #f0f2f5);
+  --bg-overlay: linear-gradient(45deg, rgba(74, 144, 255, 0.1), rgba(156, 74, 255, 0.1), rgba(255, 74, 144, 0.1), rgba(255, 165, 74, 0.1));
   --text-primary: #2d3748;
   --text-secondary: #4a5568;
   --border-color: #e2e8f0;
@@ -19,12 +20,13 @@
 [data-theme="dark"] {
   --bg-primary: linear-gradient(135deg, #1e1e1e, #2d2d2d);
   --bg-secondary: linear-gradient(145deg, #2c2c2c, #1a1a1a);
+  --bg-overlay: linear-gradient(45deg, rgba(74, 144, 255, 0.15), rgba(156, 74, 255, 0.15), rgba(255, 74, 144, 0.15), rgba(255, 165, 74, 0.15));
   --text-primary: #ffffff;
   --text-secondary: #e2e8f0;
   --border-color: #333333;
-  --input-bg: #1a1a1a;
-  --shadow-light: #0f0f0f;
-  --shadow-dark: #3d3d3d;
+  --input-bg: #1f1d1d;
+  --shadow-light: rgba(0, 0, 0, 0.3);
+  --shadow-dark: rgba(0, 0, 0, 0.5);
   --accent-color: #4a90ff;
   --accent-hover: #5ba0ff;
   --icon-fill: #ffffff;
@@ -146,14 +148,29 @@ body {
   width: 350px;
   margin: auto;
   padding: 30px;
-  background: var(--bg-secondary);
+  background: 
+    var(--bg-overlay),
+    var(--bg-secondary);
   border-radius: 20px;
   box-shadow: 
-    20px 20px 60px var(--shadow-light),
-    -20px -20px 60px var(--shadow-dark),
-    inset 0 0 20px rgba(255, 255, 255, 0.05);
+    0 0 10px var(--shadow-light),
+    0 0 30px var(--shadow-dark),
+    inset 0 0 10px rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
+  position: relative;
+}
+
+.calculator-container:hover {
+  transform: translateY(-2px);
+  background: 
+    linear-gradient(135deg, rgba(74, 144, 255, 0.1), transparent),
+    var(--bg-overlay),
+    var(--bg-secondary);
+  box-shadow: 
+    0 2px 15px var(--shadow-light),
+    0 2px 40px var(--shadow-dark),
+    inset 0 0 15px rgba(255, 255, 255, 0.08);
 }
 
 .input-field {
